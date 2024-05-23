@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressBookController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +15,21 @@ use App\Http\Controllers\ContactController;
 |
 */
 
+// Basic welcome route
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Secure the Dashboard route
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-// AddressBookController
-Route::resource('addressbook', AddressBookController::class);
+// Resource routes for AddressBook with authentication
+Route::middleware(['auth'])->group(function () {
+    Route::resource('addressbook', AddressBookController::class);
+    Route::resource('users', UserController::class); // Ensure UserController exists and is properly defined
+});
 
+// Authentication routes provided by Laravel Breeze or similar
 require __DIR__.'/auth.php';
