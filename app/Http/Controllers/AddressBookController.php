@@ -22,22 +22,25 @@ class AddressBookController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'file' => 'nullable|file|max:10240', // Up to 10 MB
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|max:255',
+        'file' => 'nullable|file|max:10240', // Allow up to 10 MB files.
+    ]);
 
-        $addressBook = new AddressBook($validated);
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $addressBook->file_path = $request->file('file')->store('public/addressbook_files');
-        }
-        $addressBook->save();
+    $addressBook = new AddressBook($validated);
+    $addressBook->user_id = auth()->id(); // Assign the current user's ID to user_id
 
-        return redirect()->route('addressbook.index')->with('success', 'Entry created successfully!');
+    if ($request->hasFile('file') && $request->file('file')->isValid()) {
+        $addressBook->file_path = $request->file('file')->store('public/addressbook_files');
     }
+    $addressBook->save();
+
+    return redirect()->route('addressbook.index')->with('success', 'Entry created successfully!');
+}
+
 
     public function show(AddressBook $addressBook)
     {
@@ -56,24 +59,22 @@ class AddressBookController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-            'file' => 'nullable|file|max:10240', // Max file size 10 MB
+            'file' => 'nullable|file|max:10240', // Up to 10 MB
         ]);
-
-        try {
-            DB::transaction(function () use ($validated, $request, $addressBook) {
-                if ($request->hasFile('file') && $request->file('file')->isValid()) {
-                    Storage::delete($addressBook->file_path);
-                    $addressBook->file_path = $request->file('file')->store('public/addressbook_files');
-                }
-                $addressBook->update($validated);
-            });
-
-            return redirect()->route('addressbook.index')->with('success', 'Entry updated successfully!');
-        } catch (\Exception $e) {
-            Log::error('Failed to update address book entry', ['error' => $e->getMessage()]);
-            return back()->withErrors('Failed to update entry: ' . $e->getMessage());
+    
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            
+            if ($addressBook->file_path) {
+               Storage::delete($addressBook->file_path);
+            }
+            $addressBook->file_path = $request->file('file')->store('public/addressbook_files');
         }
+    
+        $addressBook->update($validated);
+    
+        return redirect()->route('addressbook.index')->with('success', 'Entry updated successfully!');
     }
+    
 
     public function destroy(AddressBook $addressBook)
     {

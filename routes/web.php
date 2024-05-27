@@ -13,14 +13,14 @@ use App\Http\Controllers\UserController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+*/        
 
 // Basic welcome route
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Secure the Dashboard route
+   
+// Secure the Dashboard route      
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

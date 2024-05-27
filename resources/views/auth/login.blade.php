@@ -12,7 +12,7 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
-                        @csrf  
+                        @csrf                                  
 
                         <div class="form-group mb-3">
                             <label for="email">{{ __('Email Address') }}</label>

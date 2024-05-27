@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        dd($users);
         return view('users.index', compact('users')); // Ensure you have a view file for listing users
     }
 
@@ -83,7 +84,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-        ]);
+        ]);                                                                        
     
         $user = User::findOrFail($id);
         $user->update($request->all());
@@ -97,7 +98,7 @@ class UserController extends Controller
      * Remove the specified user from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return                  \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -108,3 +109,4 @@ class UserController extends Controller
     }
     
 }
+    
