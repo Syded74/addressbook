@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 // Resource routes for AddressBook with authentication
 Route::middleware(['auth'])->group(function () {
     Route::resource('addressbook', AddressBookController::class);
-    Route::resource('users', UserController::class); // Ensure UserController exists and is properly defined
+    Route::resource('users', UserController::class);  
 });
 
 // Authentication routes provided by Laravel Breeze or similar
