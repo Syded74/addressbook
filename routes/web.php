@@ -23,12 +23,11 @@ Route::get('/', function () {
 // Secure the Dashboard route      
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
+})->middleware(['auth'])->name('dashboard'); 
 // Resource routes for AddressBook with authentication
 Route::middleware(['auth'])->group(function () {
     Route::resource('addressbook', AddressBookController::class);
-    Route::resource('users', UserController::class);  
+    Route::resource('users', UserController::class);                                                                                                           
 });
 
 // Authentication routes provided by Laravel Breeze or similar
