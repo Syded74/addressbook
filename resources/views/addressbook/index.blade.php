@@ -11,6 +11,7 @@
                 <th>Name</th>
                 <th>Address</th>
                 <th>Phone</th>
+                <th>Added by</th> <!-- Added this new column -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ $entry->name }}</td>
                 <td>{{ $entry->address }}</td>
                 <td>{{ $entry->phone }}</td>
+                <td>{{ $entry->user->name ?? 'Unknown' }}</td> <!-- Display the user who added the entry -->
                 <td>
                     <a href="{{ route('addressbook.show', $entry->id) }}" class="btn btn-info">View</a>
                     <a href="{{ route('addressbook.edit', $entry->id) }}" class="btn btn-warning">Edit</a>

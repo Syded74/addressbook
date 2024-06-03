@@ -11,7 +11,7 @@
         background-color: #f9f9f9;
     }
 
-    .form-container h1 {
+    .form-container h1 {      
         text-align: center;
         margin-bottom: 20px;
     }
@@ -66,7 +66,7 @@
         </div>
         <div>
             <label for="phone">Phone:</label>
-            <input type="text" name="phone" id="phone" required>
+            <input type ="text" name="phone" id="phone" required>
         </div>
         <div>
             <!-- File Upload -->

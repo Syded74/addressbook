@@ -11,7 +11,7 @@ class AddressBookController extends Controller
 {
     public function index()
     {
-        $entries = AddressBook::all();
+        $entries = AddressBook::with('user')->get();
         return view('addressbook.index', compact('entries'));
     }
 
