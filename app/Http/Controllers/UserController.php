@@ -21,17 +21,18 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([     
+        $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'status' => 'required|in:active,inactive'
         ]);
-
+    
         $validatedData['password'] = Hash::make($validatedData['password']); // Hash the password
-
-        $user = User::create($validatedData);
+        User::create($validatedData);
+    
         return redirect()->route('users.index')->with('success', 'User created successfully.');
-    }          
+    }
 
     public function show($id)
     {
@@ -49,15 +50,15 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id, 
+            'email' => 'required|email|unique:users,email,' . $id,
+            'status' => 'required|in:active,inactive'
         ]);
-              
+    
         $user = User::findOrFail($id);
         $user->update($validated);
-
+    
         return redirect()->route('users.index')->with('success', 'User updated successfully!');
     }
-
     public function destroy($id)
     {
         $user = User::findOrFail($id);

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')           
+@section('content')
     <div class="container">
         <h1>Create New User</h1>
         <form method="POST" action="{{ route('users.store') }}">
@@ -17,8 +17,15 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
+            <!-- Status selection -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-control">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 @endsection
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

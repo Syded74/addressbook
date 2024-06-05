@@ -9,6 +9,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Status</th> <!-- Added status column -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -17,6 +18,7 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->status ?? 'Not specified' }}</td> <!-- Display status -->
                         <td>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info">Edit</a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block;">
