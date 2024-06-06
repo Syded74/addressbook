@@ -14,6 +14,16 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
             </div>
+
+            <!-- Status selection -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-control">
+                    <option value="active" {{ $user->status == 'active' ? ' selected' : '' }}>Active</option>
+                    <option value="inactive" {{ $user->status == 'inactive' ? ' selected' : '' }}>Inactive</option>
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>

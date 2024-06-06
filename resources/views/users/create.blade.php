@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Create New User</h1>
+        <h1>Create New User</h1>                    
         <form method="POST" action="{{ route('users.store') }}">
             @csrf
             <div class="mb-3">
@@ -16,7 +16,7 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
-            </div>
+            </div> 
             <!-- Status selection -->
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
