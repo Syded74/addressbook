@@ -9,10 +9,26 @@ use Illuminate\Http\Request;
 
 class AddressBookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $query = AddressBook::query();
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        if ($request->filled('date')) {
+            $query->where('created_at', $request->date);
+        }
+
+        $entries = $query->get();
+           /*
         $entries = AddressBook::with('user')->get();
+        */
         return view('addressbook.index', compact('entries'));
+        
     }
 
     public function create()
