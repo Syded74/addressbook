@@ -42,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-}
+
+    #Get Address Book Entries associated with a user  
+    public function addressBookEntries()
+    {
+        return $this->hasMany(\App\Models\AddressBook::class);
+    }
+    }
+

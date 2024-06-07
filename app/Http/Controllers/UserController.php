@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Hash; // Include the Hash facade
 class UserController extends Controller
 {
     public function index()
-    {         
-        $users = User::all();
-        return view('users.index', compact('users'));
-    }
+{
+    $users = User::withCount('addressBookEntries')->get();
+    return view('users.index', compact('users'));
+}
+
 
     public function create()
     {
