@@ -8,9 +8,23 @@ use Illuminate\Support\Facades\Hash; // Include the Hash facade
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 {
-    $users = User::withCount('addressBookEntries')->get();
+    $query = User ::query();
+    if ($request->filled('name')) {
+        $query->where('name', 'like', '%' . $request->name . '%');
+
+    }
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+    if ($request->filled('date')) {
+        $query->where('created_at', $request->date);
+    }
+
+    $users = $query ->withCount('addressBookEntries')->paginate(10);
+
+   // $users = User::withCount('addressBookEntries')->get();
     return view('users.index', compact('users'));
 }
 
